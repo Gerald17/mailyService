@@ -7,4 +7,5 @@ app.get('/', (req, res) => {
 
 // heroku
 const PORT = process.env.PORT || 5000;
+console.log('fucking port', PORT);
 app.listen(PORT);
