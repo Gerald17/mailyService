@@ -1,11 +1,12 @@
-const express = require('express');
-const app = express();
+const 
+express = require('express'),
+mongoose = require('mongoose');
 
-app.get('/', (req, res) => {
-    res.send({ hi: 'there buddy'});
-});
+require('./services/passport');
+
+const app = express();
+require('./routes/authRoutes')(app);
 
 // heroku
 const PORT = process.env.PORT || 5000;
-console.log('fucking port', PORT);
 app.listen(PORT);
