@@ -9,6 +9,16 @@ module.exports = (app) => {
         ]
     }));
 
-    app.get('/auth/google/callback', passport.authenticate('google'));
+    app.get('/auth/google/callback', 
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+      return res.send('hola');
+    });
+
+    app.get('/auth/google/callback', passport.authenticate('google'), { failure: '/login'});
     
+    app.get('/api/current_user', (req, res) => {
+        res.send(req.user);
+    });
+
 }

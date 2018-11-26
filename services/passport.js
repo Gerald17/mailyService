@@ -22,21 +22,15 @@ passport.use(new googleStrategy({
           callbackURL: '/auth/google/callback'
       },
       (accessToken, refreshToken, profile, done) => {
-          User.findOne({ googleId: profile.id })
-            .then(existingUser => {
+          User.findOne({ googleId: profile.id }).then(existingUser => {
               if(existingUser){
-                done(null, existingUser);
+                return done(err, existingUser);
               }else{                
-                new User({
-                  googleId: profile.id,
-                  name: 'Gerardo Estrada'
-                }).save()
-                  .then(user => {
-                    done(null, user);
+                new User({ googleId: profile.id }).save().then(user => {
+                  return done(err, user)
                 });
               }
-            });
-
+          });
       }
     )
   );
