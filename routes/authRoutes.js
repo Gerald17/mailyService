@@ -9,7 +9,13 @@ module.exports = (app) => {
         ]
     }));
 
-    app.get('/auth/google/callback', passport.authenticate('google'), { failure: '/login'});
+    app.get('/auth/google/callback', (req, res) => {
+        res.redirect('/api/current_user')
+    });
+
+    app.get('/api/logout', (req, res) => {
+        req.logout();
+    });
     
     app.get('/api/current_user', (req, res) => {
         res.send(req.user);
