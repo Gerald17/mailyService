@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-import './App.css';
 import Header from './shared/Header';
 
 const Dashboard = () => <h2>Dashboard</h2>;
@@ -10,31 +11,29 @@ const Landing = () => <h2>Landing</h2>;
 
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.fetchUser();
+  };
+
   render() {
     return (
-      <div className="App">
+      <div className='container is-fluid'>
         <Router>
-          <div>
+          <React.Fragment>
             <Header/>
             <Route exact path='/' component={Landing}></Route>
-            <Route exact path='/surveys' component={Dashboard}></Route>
+            <Route exact path='/dashboard' component={Dashboard}></Route>
             <Route path='/surveys/new' component={SurveyNew}></Route>
-            <Route path='/header' component={Header}></Route>
-          </div>
+          </React.Fragment>
         </Router>
-        <header className="App-header">
-          <a
-            className="App-link"
-            href="http://localhost:5000/auth/google"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GOOGLE SIGN IN
-          </a>
-        </header>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps({ auth }){
+  return auth 
+}
+
+export default connect(mapStateToProps, actions)(App);

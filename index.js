@@ -3,7 +3,8 @@ express = require('express'),
 mongoose = require('mongoose'),
 keys = require('./config/keys'),
 cookieSession = require('cookie-session'),
-passport = require('passport');
+passport = require('passport'),
+cors = require('cors');
 
 require('./models/User');
 require('./services/passport');
@@ -11,6 +12,11 @@ require('./services/passport');
 mongoose.connect(keys.dbConnection, { useNewUrlParser: true });
 
 const app = express();
+ 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+  }
 
 app.use(
     cookieSession({
@@ -20,6 +26,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors(corsOptions));
 
 require('./routes/authRoutes')(app);
 
