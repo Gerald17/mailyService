@@ -7,5 +7,10 @@ module.exports = {
     dbConnection: process.env.DB_CONNECTION,
 
     //cookie key
-    cookieKey: process.env.COOKIE_KEY
+    cookieKey: process.env.COOKIE_KEY,
+    
+
+    //stripe
+    stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY
 }

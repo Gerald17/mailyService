@@ -11,3 +11,8 @@ export function get(endpoint){
   const request = api.get(endpoint);
   return request;
 };
+
+export function post(endpoint, token){  
+  const request = api.post(endpoint, token);
+  return request;
+};

@@ -4,7 +4,8 @@ mongoose = require('mongoose'),
 keys = require('./config/keys'),
 cookieSession = require('cookie-session'),
 passport = require('passport'),
-cors = require('cors');
+cors = require('cors'),
+bodyParser = require('body-parser');
 
 require('./models/User');
 require('./services/passport');
@@ -18,6 +19,7 @@ const corsOptions = {
     optionsSuccessStatus: 200
   }
 
+app.use(bodyParser.json()); //used for post/put/path request
 app.use(
     cookieSession({
         maxAge: 30*24*60*60*1000,
@@ -29,6 +31,7 @@ app.use(passport.session());
 app.use(cors(corsOptions));
 
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
 // heroku
 const PORT = process.env.PORT || 5000;

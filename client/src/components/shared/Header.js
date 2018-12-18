@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { Link } from 'react-router-dom';
+import Payments from '../Payments';
 
 class Header extends Component {
     
@@ -18,9 +19,12 @@ class Header extends Component {
           )
       default:
          return (
-             <React.Fragment>
+            <React.Fragment>
                 <h5>Bienvenido</h5> | 
-                <a href='/api/logout'>Logout</a>
+                <Payments/> | 
+                <a href='/api/logout'>Logout</a> | 
+
+                <h2>You have {auth.credits}</h2>
             </React.Fragment>
             )
     }
@@ -56,8 +60,8 @@ class Header extends Component {
     }
 }
  
-function mapStateToProps({ auth }){
+function stateToProps({ auth }){
     return auth
   }
   
-  export default connect(mapStateToProps, actions)(Header);
+  export default connect(stateToProps, actions)(Header);
